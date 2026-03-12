@@ -207,7 +207,7 @@ export default function Hero() {
                 className="col-span-2 relative aspect-[4/3] rounded-2xl overflow-hidden group shadow-md hover:shadow-2xl transition-all duration-700 block"
               >
                 <img 
-                  src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80" 
+                  src="/products/Brightening Facial Oil1.jpg" 
                   alt="Featured Product Texture" 
                   className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s]"
                 />
@@ -216,7 +216,7 @@ export default function Hero() {
                 <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   <div>
                     <p className="font-sans text-[0.55rem] tracking-[0.2em] uppercase text-cream/70 mb-1">Featured</p>
-                    <p className="font-serif text-cream text-lg leading-none">Radiance Butter</p>
+                    <p className="font-serif text-cream text-lg leading-none">Brightening Facial Oil</p>
                   </div>
                   <div className="w-8 h-8 rounded-full bg-cream text-forest flex items-center justify-center">
                     <svg className="w-4 h-4 -rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -239,7 +239,7 @@ export default function Hero() {
                   </span>
                   <div className="relative z-10">
                     <p className="font-serif text-cream text-4xl lg:text-5xl font-light leading-none mb-1">
-                      7
+                      8
                     </p>
                     <p className="font-sans text-[0.55rem] font-bold tracking-[0.15em] uppercase text-sage">
                       Products
