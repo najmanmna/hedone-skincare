@@ -58,7 +58,7 @@ export default function WhatsAppFloat() {
 
           {/* Button */}
           <a
-            href="https://wa.me/94762477764?text=Hi%2C%20I%27m%20interested%20in%20HEDONE%20products"
+            href="https://wa.me/94766907764?text=Hi%2C%20I%27m%20interested%20in%20HEDONE%20products"
             target="_blank"
             rel="noopener noreferrer"
             onMouseEnter={() => setTooltip(true)}

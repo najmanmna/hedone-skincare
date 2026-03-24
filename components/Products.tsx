@@ -289,7 +289,7 @@ export default function Products() {
               Want the full story on ingredients &amp; benefits?
             </p>
             <a
-              href="https://wa.me/94762477764?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20HEDONE%20products"
+              href="https://wa.me/94766907764?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20HEDONE%20products"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-4 bg-forest text-cream px-8 py-4 hover:bg-forest-deep transition-all duration-500 hover:-translate-y-1 shadow-lg shadow-forest/10 rounded-full"
@@ -622,7 +622,7 @@ function ProductModal({
                 {/* CTA */}
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a
-                    href={`https://wa.me/94762477764?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20${encodeURIComponent(
+                    href={`https://wa.me/94766907764?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20${encodeURIComponent(
                       product.name
                     )}`}
                     target="_blank"

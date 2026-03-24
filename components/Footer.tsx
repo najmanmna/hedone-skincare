@@ -16,7 +16,7 @@ const contactInfo = {
     "Bathiya Mawatha, Pamunuwila",
     "Gonawala, Sri Lanka",
   ],
-  whatsapp: "https://wa.me/94762477764",
+  whatsapp: "https://wa.me/94766907764",
   instagram: "https://www.instagram.com/hedone_natural_skincare",
   website: "www.hedoneskincare.com",
 };
@@ -35,11 +35,11 @@ export default function Footer() {
             className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
           >
             <div className="lg:col-span-7">
-              <p className="font-sans text-[0.6rem] font-bold tracking-[0.35em] uppercase text-sage-light/40 mb-4">
+              <p className="font-sans text-[0.6rem] font-bold tracking-[0.35em] uppercase text-sage-light/70 mb-4">
                 Start your natural skincare journey
               </p>
               <h3
-                className="font-serif text-cream/90 font-light leading-[1.1]"
+                className="font-serif text-cream font-light leading-[1.1]"
                 style={{ fontSize: "clamp(1.8rem, 3vw, 2.8rem)" }}
               >
                 Your skin deserves ingredients
@@ -93,11 +93,12 @@ export default function Footer() {
         >
           {/* Brand Column */}
           <div className="lg:col-span-4">
-            <a
-              href="#"
-              className="font-serif text-cream text-2xl tracking-[0.08em] inline-block mb-5"
-            >
-              HEDONE
+            <a href="#" className="inline-block mb-5">
+              <img
+                src="/logo-trans.png"
+                alt="Hedone"
+                className="h-28 w-auto brightness-0 invert"
+              />
             </a>
             <p className="font-sans text-cream/40 text-[0.8rem] leading-[1.8] max-w-xs mb-6">
               100% natural and vegan skincare crafted in Sri Lanka. Extensively

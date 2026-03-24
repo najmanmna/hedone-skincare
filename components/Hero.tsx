@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
 
 const slideUp = (delay: number) => ({
   initial: { y: 40, opacity: 0 },
@@ -21,6 +21,7 @@ const reveal = (delay: number) => ({
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -50,10 +51,11 @@ export default function Hero() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-40 flex items-center justify-between px-6 md:px-10 lg:px-14 py-6 border-b border-sage-muted/30"
+        className="fixed md:relative top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 lg:px-14 py-6 border-b border-sage-muted/30 bg-cream/95 md:bg-transparent backdrop-blur-md md:backdrop-blur-none"
       >
-        <a href="#" className="font-serif text-forest text-2xl md:text-3xl tracking-[0.1em] uppercase">
-          Hedone
+        <a href="#" className="flex items-center gap-2">
+          <img src="/logo-nav.png" alt="Hedone Logo" className="h-8 md:h-10 w-auto" />
+          <span className="font-serif text-forest text-2xl md:text-3xl tracking-widest uppercase">Hedone</span>
         </a>
         <div className="hidden md:flex items-center gap-12">
           {["Philosophy", "Products", "Journey"].map((link) => (
@@ -66,7 +68,7 @@ export default function Hero() {
             </a>
           ))}
           <a
-            href="https://wa.me/94762477764"
+            href="https://wa.me/94766907764"
             target="_blank"
             rel="noopener noreferrer"
             className="font-sans text-[0.7rem] font-medium tracking-[0.2em] uppercase bg-forest text-cream px-7 py-3 rounded-full hover:bg-forest-deep transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-forest/10"
@@ -74,15 +76,54 @@ export default function Hero() {
             Get in Touch
           </a>
         </div>
-        <button className="md:hidden flex flex-col gap-1.5" aria-label="Menu">
-          <span className="block w-6 h-[1.5px] bg-forest" />
-          <span className="block w-4 h-[1.5px] bg-forest ml-auto" />
+        <button
+          className="md:hidden flex flex-col gap-1.5 relative z-50"
+          aria-label="Menu"
+          onClick={() => setMenuOpen((o) => !o)}
+        >
+          <span className={`block w-6 h-[1.5px] bg-forest transition-transform duration-300 ${menuOpen ? "rotate-45 translate-y-1.5" : ""}`} />
+          <span className={`block w-4 h-[1.5px] bg-forest ml-auto transition-all duration-300 ${menuOpen ? "opacity-0 w-6 -rotate-45" : ""}`} />
         </button>
       </motion.nav>
 
+      {/* ── Mobile Menu ── */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="md:hidden fixed top-0 left-0 right-0 z-40 bg-cream/95 backdrop-blur-md pt-24 pb-10 px-6 border-b border-sage-muted/30 shadow-xl"
+          >
+            <nav className="flex flex-col gap-6">
+              {["Philosophy", "Products", "Journey"].map((link) => (
+                <a
+                  key={link}
+                  href={`#${link.toLowerCase()}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="font-sans text-sm font-medium tracking-[0.2em] uppercase text-charcoal-light hover:text-forest transition-colors duration-300 border-b border-sage-muted/20 pb-4"
+                >
+                  {link}
+                </a>
+              ))}
+              <a
+                href="https://wa.me/94766907764"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+                className="mt-2 inline-block text-center font-sans text-sm font-medium tracking-[0.2em] uppercase bg-forest text-cream px-7 py-4 rounded-full hover:bg-forest-deep transition-all duration-300"
+              >
+                Get in Touch
+              </a>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* ── Hero Content ── */}
-      <div className="relative z-10 px-6 md:px-10 lg:px-14 pt-8 md:pt-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      <div className="relative z-10 px-6 md:px-10 lg:px-14 pt-28 md:pt-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 lg:items-start">
           
           {/* ──────── LEFT — Main Image ──────── */}
           <div className="lg:col-span-6 relative w-full">
@@ -99,7 +140,7 @@ export default function Hero() {
               />
 
               {/* Elegant Bottom Gradient & Text */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 bg-gradient-to-t from-forest-deep/90 via-forest-deep/40 to-transparent flex flex-col justify-end h-1/2">
+              <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 bg-gradient-to-t from-forest-deep/90 via-forest-deep/40 to-transparent flex flex-col justify-end h-1/2 pb-36 md:pb-10">
                 <motion.div {...slideUp(1.0)}>
                   <p className="font-sans text-[0.6rem] tracking-[0.3em] uppercase text-sage-light/80 mb-3">
                     Rooted in Sri Lanka
@@ -116,7 +157,7 @@ export default function Hero() {
               initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 1, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute -bottom-6 -right-2 md:-right-8 z-20 w-[240px] rounded-3xl p-6 bg-white border border-warm-gray/10 shadow-[0_20px_60px_rgba(45,74,62,0.2)]"
+              className="absolute -bottom-14 md:-bottom-6 -right-2 md:-right-8 z-20 w-72 md:w-56 rounded-3xl p-5 bg-white border border-warm-gray/10 shadow-[0_20px_60px_rgba(45,74,62,0.2)]"
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="w-2 h-2 rounded-full bg-terracotta relative">
@@ -133,7 +174,7 @@ export default function Hero() {
               </p>
               
               <div className="flex flex-wrap gap-2">
-                {["Ecocert", "COSMOS", "IFRA"].map((b) => (
+                {["GMP Standards", "Ecocert Aligned", "IFRA Compliant"].map((b) => (
                   <span
                     key={b}
                     className="font-sans text-[0.5rem] font-bold tracking-[0.15em] uppercase text-forest-deep bg-sage-muted/40 px-2 py-1.5 rounded"
@@ -146,17 +187,12 @@ export default function Hero() {
           </div>
 
           {/* ──────── RIGHT — Content + Bento ──────── */}
-          <div className="lg:col-span-6 flex flex-col pt-10 lg:pt-0">
+          <div className="lg:col-span-6 flex flex-col">
             {/* Headline Block */}
             <motion.div style={{ y: yText }} className="flex flex-col justify-center mb-12">
-              <div className="overflow-hidden mb-6">
-                <motion.p
-                  {...slideUp(0.3)}
-                  className="font-sans text-[0.65rem] font-semibold tracking-[0.3em] uppercase text-sage"
-                >
-                  Natural Skincare / Est. 2026
-                </motion.p>
-              </div>
+              <motion.div {...slideUp(0.3)} className="mb-0">
+                <img src="/logo-full.png" alt="Hedone" className="h-36 md:h-44 lg:h-52 w-auto" />
+              </motion.div>
 
               <div className="overflow-hidden">
                 <motion.h1
@@ -271,7 +307,7 @@ export default function Hero() {
       {/* ── Rotating Seal — Mouse Following ── */}
       <motion.div
         style={{ x: mx, y: my }}
-        className="hidden lg:block absolute top-[25%] left-[46%] z-30 pointer-events-none mix-blend-multiply opacity-70"
+        className="hidden lg:block absolute top-[60%] left-[44%] z-30 pointer-events-none mix-blend-multiply opacity-70"
       >
         <motion.div
           animate={{ rotate: 360 }}
@@ -312,7 +348,7 @@ export default function Hero() {
                 "Vegan Formulations",
                 "Globally Sourced",
                 "ITI Lab Tested",
-                "Ecocert Standards",
+                "GMP Standards",
                 "Plant-Based Waxes",
               ].map((text) => (
                 <span key={`${i}-${text}`} className="flex items-center">
