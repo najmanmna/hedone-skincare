@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
+import LanguageToggle from "./LanguageToggle";
 
 const slideUp = (delay: number) => ({
   initial: { y: 40, opacity: 0 },
@@ -19,6 +21,9 @@ const reveal = (delay: number) => ({
 });
 
 export default function Hero() {
+  const t = useTranslations("hero");
+  const tn = useTranslations("nav");
+
   const sectionRef = useRef<HTMLElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [menuOpen, setMenuOpen] = useState(false);
@@ -43,9 +48,25 @@ export default function Hero() {
   const mx = useSpring(mousePos.x * 12, { stiffness: 80, damping: 30 });
   const my = useSpring(mousePos.y * 12, { stiffness: 80, damping: 30 });
 
+  const navLinks = [
+    { label: tn("philosophy"), href: "#about" },
+    { label: tn("products"), href: "#products" },
+    { label: tn("journey"), href: "#journey" },
+  ];
+
+  const marqueeItems = [
+    t("marquee0"),
+    t("marquee1"),
+    t("marquee2"),
+    t("marquee3"),
+    t("marquee4"),
+    t("marquee5"),
+    t("marquee6"),
+  ];
+
   return (
     <section ref={sectionRef} className="relative overflow-hidden bg-cream selection:bg-sage-muted selection:text-forest-deep">
-      
+
       {/* ── Navbar ── */}
       <motion.nav
         initial={{ opacity: 0, y: -20 }}
@@ -58,22 +79,23 @@ export default function Hero() {
           <img src="/logo-text.png" alt="Hedone" className="h-6 md:h-7 lg:h-8 w-auto" />
         </a>
         <div className="hidden md:flex items-center gap-12">
-          {["Philosophy", "Products", "Journey"].map((link) => (
+          {navLinks.map((link) => (
             <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
+              key={link.href}
+              href={link.href}
               className="font-sans text-[0.7rem] font-medium tracking-[0.2em] uppercase text-charcoal-light hover:text-forest transition-colors duration-300"
             >
-              {link}
+              {link.label}
             </a>
           ))}
+          <LanguageToggle />
           <a
             href="https://wa.me/94766907764"
             target="_blank"
             rel="noopener noreferrer"
             className="font-sans text-[0.7rem] font-medium tracking-[0.2em] uppercase bg-forest text-cream px-7 py-3 rounded-full hover:bg-forest-deep transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-forest/10"
           >
-            Get in Touch
+            {tn("cta")}
           </a>
         </div>
         <button
@@ -97,16 +119,19 @@ export default function Hero() {
             className="md:hidden fixed top-0 left-0 right-0 z-40 bg-cream/95 backdrop-blur-md pt-24 pb-10 px-6 border-b border-sage-muted/30 shadow-xl"
           >
             <nav className="flex flex-col gap-6">
-              {["Philosophy", "Products", "Journey"].map((link) => (
+              {navLinks.map((link) => (
                 <a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
+                  key={link.href}
+                  href={link.href}
                   onClick={() => setMenuOpen(false)}
                   className="font-sans text-sm font-medium tracking-[0.2em] uppercase text-charcoal-light hover:text-forest transition-colors duration-300 border-b border-sage-muted/20 pb-4"
                 >
-                  {link}
+                  {link.label}
                 </a>
               ))}
+              <div className="flex items-center gap-3">
+                <LanguageToggle />
+              </div>
               <a
                 href="https://wa.me/94766907764"
                 target="_blank"
@@ -114,7 +139,7 @@ export default function Hero() {
                 onClick={() => setMenuOpen(false)}
                 className="mt-2 inline-block text-center font-sans text-sm font-medium tracking-[0.2em] uppercase bg-forest text-cream px-7 py-4 rounded-full hover:bg-forest-deep transition-all duration-300"
               >
-                Get in Touch
+                {tn("cta")}
               </a>
             </nav>
           </motion.div>
@@ -124,7 +149,7 @@ export default function Hero() {
       {/* ── Hero Content ── */}
       <div className="relative z-10 px-6 md:px-10 lg:px-14 pt-28 md:pt-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 lg:items-start">
-          
+
           {/* ──────── LEFT — Main Image ──────── */}
           <div className="lg:col-span-6 relative w-full">
             <motion.div
@@ -132,27 +157,24 @@ export default function Hero() {
               style={{ y: yImage }}
               className="relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-t-[10rem] rounded-b-3xl shadow-2xl shadow-forest/5"
             >
-              {/* High-End Photography */}
-              <img 
-                src="/main-image.png" 
-                alt="HEDONE Skincare Ritual" 
+              <img
+                src="/main-image.png"
+                alt="HEDONE Skincare Ritual"
                 className="absolute inset-0 w-full h-full object-cover transform hover:scale-105 transition-transform duration-[2s] ease-out"
               />
-
-              {/* Elegant Bottom Gradient & Text */}
               <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 bg-gradient-to-t from-forest-deep/90 via-forest-deep/40 to-transparent flex flex-col justify-end h-1/2 pb-36 md:pb-10">
                 <motion.div {...slideUp(1.0)}>
                   <p className="font-sans text-[0.6rem] tracking-[0.3em] uppercase text-sage-light/80 mb-3">
-                    Rooted in Sri Lanka
+                    {t("rootedIn")}
                   </p>
                   <p className="font-serif text-cream text-xl md:text-2xl leading-snug max-w-[280px]">
-                    Where botanical wisdom meets modern skin science.
+                    {t("imageLine")}
                   </p>
                 </motion.div>
               </div>
             </motion.div>
 
-            {/* ── Floating Certification Card — ENHANCED FOR CLARITY ── */}
+            {/* ── Floating Certification Card ── */}
             <motion.div
               initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -164,17 +186,14 @@ export default function Hero() {
                   <span className="absolute inset-0 rounded-full bg-terracotta animate-ping opacity-50" />
                 </span>
                 <span className="font-sans text-[0.6rem] font-bold tracking-[0.2em] uppercase text-forest/70">
-                  Our Promise
+                  {t("ourPromise")}
                 </span>
               </div>
-              
-              {/* Added font-medium and deepened text color for crispness */}
               <p className="font-serif text-forest-deep font-medium text-base leading-snug mb-4">
-                100% natural. 100% vegan. Zero compromise.
+                {t("promise")}
               </p>
-              
               <div className="flex flex-wrap gap-2">
-                {["GMP Standards", "Ecocert Aligned", "IFRA Compliant"].map((b) => (
+                {[t("gmp"), t("ecocert"), t("ifra")].map((b) => (
                   <span
                     key={b}
                     className="font-sans text-[0.5rem] font-bold tracking-[0.15em] uppercase text-forest-deep bg-sage-muted/40 px-2 py-1.5 rounded"
@@ -199,7 +218,7 @@ export default function Hero() {
                   {...slideUp(0.4)}
                   className="font-serif text-forest leading-[1.05] text-5xl md:text-6xl lg:text-7xl tracking-tight"
                 >
-                  Crafted for skin
+                  {t("h1Line1")}
                 </motion.h1>
               </div>
               <div className="overflow-hidden">
@@ -207,14 +226,15 @@ export default function Hero() {
                   {...slideUp(0.5)}
                   className="font-serif text-forest leading-[1.05] text-5xl md:text-6xl lg:text-7xl tracking-tight"
                 >
-                  that craves <span className="italic text-terracotta font-light">honesty.</span>
+                  {t("h1Line2Start")}{" "}
+                  <span className="italic text-terracotta font-light">{t("h1Accent")}</span>
                 </motion.h1>
               </div>
 
               <motion.div {...slideUp(0.6)} className="mt-8 max-w-md">
                 <p className="font-sans text-charcoal-light text-base md:text-lg leading-relaxed">
-                  Every formulation begins with deep research into skin biology
-                  and ingredient science. Because <span className="text-forest font-medium">what touches your skin should understand it first.</span>
+                  {t("description")}{" "}
+                  <span className="text-forest font-medium">{t("descriptionAccent")}</span>
                 </p>
               </motion.div>
 
@@ -225,7 +245,7 @@ export default function Hero() {
                   className="group inline-flex items-center gap-4 font-sans text-[0.7rem] font-bold tracking-[0.2em] uppercase text-forest hover:text-terracotta transition-colors duration-500"
                 >
                   <span className="block w-12 h-[1px] bg-forest group-hover:w-20 group-hover:bg-terracotta transition-all duration-500" />
-                  Discover Collection
+                  {t("cta")}
                   <svg className="w-4 h-4 -rotate-45 group-hover:rotate-0 transition-transform duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
@@ -235,24 +255,22 @@ export default function Hero() {
 
             {/* ── Premium Bento Grid ── */}
             <div className="grid grid-cols-3 gap-4 pb-10">
-              
-              {/* Product Card — Image Forward */}
+              {/* Product Card */}
               <motion.a
                 href="#products"
                 {...reveal(0.8)}
                 className="col-span-2 relative aspect-[4/3] rounded-2xl overflow-hidden group shadow-md hover:shadow-2xl transition-all duration-700 block"
               >
-                <img 
-                  src="/products/Brightening Facial Oil1.jpg" 
-                  alt="Featured Product Texture" 
+                <img
+                  src="/products/Brightening Facial Oil1.jpg"
+                  alt="Featured Product Texture"
                   className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2s]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-forest-deep/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-                
                 <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   <div>
-                    <p className="font-sans text-[0.55rem] tracking-[0.2em] uppercase text-cream/70 mb-1">Featured</p>
-                    <p className="font-serif text-cream text-lg leading-none">Brightening Facial Oil</p>
+                    <p className="font-sans text-[0.55rem] tracking-[0.2em] uppercase text-cream/70 mb-1">{t("featured")}</p>
+                    <p className="font-serif text-cream text-lg leading-none">{t("featuredProduct")}</p>
                   </div>
                   <div className="w-8 h-8 rounded-full bg-cream text-forest flex items-center justify-center">
                     <svg className="w-4 h-4 -rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -264,26 +282,22 @@ export default function Hero() {
 
               {/* Right Stack */}
               <div className="col-span-1 flex flex-col gap-4">
-                {/* Counter Card */}
                 <motion.div
                   {...reveal(0.9)}
                   className="relative flex-1 rounded-2xl bg-forest p-4 flex flex-col justify-between shadow-md overflow-hidden group"
                 >
-                   <div className="absolute -right-4 -top-4 w-20 h-20 bg-forest-light/20 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700" />
+                  <div className="absolute -right-4 -top-4 w-20 h-20 bg-forest-light/20 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700" />
                   <span className="font-sans text-[0.55rem] tracking-[0.2em] uppercase text-sage-light/70 relative z-10">
-                    Collection
+                    {t("collection")}
                   </span>
                   <div className="relative z-10">
-                    <p className="font-serif text-cream text-4xl lg:text-5xl font-light leading-none mb-1">
-                      8
-                    </p>
+                    <p className="font-serif text-cream text-4xl lg:text-5xl font-light leading-none mb-1">8</p>
                     <p className="font-sans text-[0.55rem] font-bold tracking-[0.15em] uppercase text-sage">
-                      Products
+                      {t("products")}
                     </p>
                   </div>
                 </motion.div>
 
-                {/* View All Card */}
                 <motion.a
                   href="#products"
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -295,7 +309,7 @@ export default function Hero() {
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                   <p className="font-sans text-[0.55rem] font-bold tracking-[0.2em] uppercase text-cream">
-                    View All
+                    {t("viewAll")}
                   </p>
                 </motion.a>
               </div>
@@ -321,7 +335,7 @@ export default function Hero() {
             <circle cx="50" cy="50" r="42" fill="rgba(248,244,237,0.75)" />
             <text className="fill-forest" style={{ fontSize: "8.5px", letterSpacing: "1px", fontWeight: 600, fontFamily: "var(--font-sans)" }}>
               <textPath href="#sealPath" startOffset="0%">
-                NATURAL • VEGAN • HEDONE • SRI LANKA •
+                {t("sealText")}
               </textPath>
             </text>
             <circle cx="50" cy="50" r="3" fill="#C4956A" />
@@ -343,15 +357,7 @@ export default function Hero() {
         >
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex items-center shrink-0">
-              {[
-                "Extensively Researched",
-                "100% Natural",
-                "Vegan Formulations",
-                "Globally Sourced",
-                "ITI Lab Tested",
-                "GMP Standards",
-                "Plant-Based Waxes",
-              ].map((text) => (
+              {marqueeItems.map((text) => (
                 <span key={`${i}-${text}`} className="flex items-center">
                   <span className="font-sans text-[0.6rem] font-bold tracking-[0.25em] uppercase text-forest/70 px-8">
                     {text}

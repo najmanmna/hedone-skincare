@@ -1,36 +1,16 @@
-import type { Metadata } from "next";
+import { getLocale } from "next-intl/server";
 import "./globals.css";
-import WhatsAppFloat from "@/components/WhatsAppFloat";
 
-export const metadata: Metadata = {
-  title: "HEDONE Natural Skincare — Nature's Promise to Your Skin",
-  description:
-    "100% natural and vegan skincare crafted in Sri Lanka. Extensively researched, quality assured, and thoroughly tested for every skin type.",
-  keywords: [
-    "natural skincare",
-    "vegan skincare",
-    "Sri Lanka skincare",
-    "HEDONE",
-    "organic beauty",
-    "plant-based skincare",
-  ],
-  openGraph: {
-    title: "HEDONE Natural Skincare",
-    description:
-      "100% natural and vegan skincare crafted in Sri Lanka with globally sourced ingredients.",
-    type: "website",
-    url: "https://www.hedoneskincare.com",
-    siteName: "HEDONE Natural Skincare",
-  },
-};
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
   return (
-    <html lang="en">
+    <html lang={locale} translate="no">
+      <meta name="google" content="notranslate" />
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -43,10 +23,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-cream text-charcoal antialiased">
-        {children}
-        <WhatsAppFloat />
-      </body>
+      <body className="bg-cream text-charcoal antialiased">{children}</body>
     </html>
   );
 }
