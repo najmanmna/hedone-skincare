@@ -39,8 +39,8 @@ export default function Footer() {
                 Start your natural skincare journey
               </p>
               <h3
-                className="font-serif text-cream font-light leading-[1.1]"
-                style={{ fontSize: "clamp(1.8rem, 3vw, 2.8rem)" }}
+                className="font-serif leading-[1.1]"
+                style={{ fontSize: "clamp(1.8rem, 3vw, 2.8rem)", color: "var(--color-cream)" }}
               >
                 Your skin deserves ingredients
                 <br className="hidden md:block" /> that{" "}

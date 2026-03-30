@@ -55,7 +55,7 @@ export default function Hero() {
       >
         <a href="#" className="flex items-center gap-2">
           <img src="/logo-nav.png" alt="Hedone Logo" className="h-8 md:h-10 w-auto" />
-          <span className="font-serif text-forest text-2xl md:text-3xl tracking-widest uppercase">Hedone</span>
+          <img src="/logo-text.png" alt="Hedone" className="h-6 md:h-7 lg:h-8 w-auto" />
         </a>
         <div className="hidden md:flex items-center gap-12">
           {["Philosophy", "Products", "Journey"].map((link) => (
@@ -134,7 +134,7 @@ export default function Hero() {
             >
               {/* High-End Photography */}
               <img 
-                src="https://images.unsplash.com/photo-1552046122-03184de85e08?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                src="/main-image.png" 
                 alt="HEDONE Skincare Ritual" 
                 className="absolute inset-0 w-full h-full object-cover transform hover:scale-105 transition-transform duration-[2s] ease-out"
               />
@@ -307,7 +307,7 @@ export default function Hero() {
       {/* ── Rotating Seal — Mouse Following ── */}
       <motion.div
         style={{ x: mx, y: my }}
-        className="hidden lg:block absolute top-[60%] left-[44%] z-30 pointer-events-none mix-blend-multiply opacity-70"
+        className="hidden lg:block absolute md:top-[35%] lg:top-[40%] left-[42%] lg:left-[44%] z-30 pointer-events-none opacity-90"
       >
         <motion.div
           animate={{ rotate: 360 }}
@@ -318,6 +318,7 @@ export default function Hero() {
             <defs>
               <path id="sealPath" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
             </defs>
+            <circle cx="50" cy="50" r="42" fill="rgba(248,244,237,0.75)" />
             <text className="fill-forest" style={{ fontSize: "8.5px", letterSpacing: "1px", fontWeight: 600, fontFamily: "var(--font-sans)" }}>
               <textPath href="#sealPath" startOffset="0%">
                 NATURAL • VEGAN • HEDONE • SRI LANKA •

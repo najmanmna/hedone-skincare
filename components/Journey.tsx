@@ -24,7 +24,7 @@ const milestones = [
   },
   {
     year: "The Perfecting",
-    title: "Trial after trial after trial",
+    title: "Trial after trial",
     description:
       "Multiple development rounds to achieve the ideal texture and feel. Natural butters and plant-based waxes refined into breathable, nourishing formulations that support the skin's natural rhythm.",
   },
@@ -129,7 +129,7 @@ export default function Journey() {
               <div className="relative aspect-[3/4] rounded-2xl md:rounded-[3rem] overflow-hidden shadow-2xl group">
                 {/* A beautiful placeholder portrait representing the founder */}
                 <img 
-                  src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80" 
+                  src="/founder.png" 
                   alt="Uthpala Pathirana - Founder" 
                   className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2s] ease-out"
                 />
